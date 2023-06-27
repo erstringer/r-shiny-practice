@@ -1,0 +1,17 @@
+---
+title: "UFO Sightings - RShiny practice"
+author: "Emily Rose Stringer"
+date: "27 June 2023"
+output: html_document
+---
+
+```{r install-packages}
+library(tidyverse)
+library(readr)
+```
+
+```{r load-data}
+ufos <- read.csv("/cloud/project/data/ufo_sightings.csv")
+```
+
+

@@ -8,10 +8,43 @@ output: html_document
 ```{r install-packages}
 library(tidyverse)
 library(readr)
+library(lubridate)
 ```
 
 ```{r load-data}
-ufos <- read.csv("/cloud/project/data/ufo_sightings.csv")
+ufos <- read.csv("/cloud/project/ufo_sightings.csv")
+
+col_types = c("date", "dttm", "dttm", "text", "text", "text", "text", "text", "dbl", "text", "lgl", "text")
 ```
+
+```{r col-name-types}
+colnames(ufos) <- c("date", 
+                    "date_reported_utc", 
+                    "date_posted", 
+                    "city", 
+                    "state", 
+                    "country", 
+                    "shape",
+                    "duration", 
+                    "duration_seconds", 
+                    "summary", 
+                    "image",
+                    "day_time")
+```
+
+
+```{r create-and-merge-yearly}
+ufos <- ufos %>%
+mutate(date = substr(date, 1, 4))
+
+yearly_total <- ufos %>%
+  count(date)
+colnames(yearly_total) <- c("date","total")
+
+ufos <- merge(ufos, yearly_total, by = "date")
+```
+
+
+
 
 
